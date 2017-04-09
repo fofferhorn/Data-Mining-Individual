@@ -1,5 +1,8 @@
 package datamining.apriori;
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 /**
  * Created by Christoffer on 08-04-2017.
  */
@@ -19,6 +22,27 @@ public class AssociationRule {
     }
 
     public static String toString(AssociationRule rule) {
-        return rule.known + " => " + rule.implied + "[support = " + rule.support + ", confidence = " + rule.confidence + ", correlation = " + rule.correlation + "]";
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        return rule.known + " => " + rule.implied +
+                "\t[" +
+                "support = " + df.format(rule.support) + ", " +
+                "confidence = " + df.format(rule.confidence) + ", " +
+                "correlation = " + df.format(rule.correlation) +
+                "]";
+    }
+
+    /**
+     * Prints the association rules.
+     * @param ruleList A list containing the association rules to be printed.
+     */
+    public static void printAssociationRules(List<AssociationRule> ruleList) {
+        System.out.println("The association rules are:");
+
+        for (AssociationRule rule : ruleList) {
+            System.out.println(AssociationRule.toString(rule));
+        }
+
+        System.out.println();
     }
 }

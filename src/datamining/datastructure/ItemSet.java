@@ -1,5 +1,6 @@
 package datamining.datastructure;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 /***
@@ -56,7 +57,7 @@ public class ItemSet {
 
     @Override
     public ItemSet clone() {
-        List<String> set = new ArrayList<String>();
+        List<String> set = new ArrayList<>();
 
         for (String i : this.set) {
             set.add(i);
@@ -105,4 +106,34 @@ public class ItemSet {
 
         return result + "]";
     }
+
+    /**
+     * Used for pretty printing the frequent item sets.
+     * @param frequentItemSets A list with all the frequent item sets.
+     *                         Will be printed in the same order they are in the list
+     * @param supportThreshold The support threshold.
+     */
+    public static void printFrequentItemSets(List<ItemSet> frequentItemSets, double supportThreshold) {
+        DecimalFormat df = new DecimalFormat("#%");
+
+        System.out.println("\nThe ItemSets with support higher than " + df.format(supportThreshold) + " are:");
+
+        ListIterator it = frequentItemSets.listIterator();
+
+        System.out.println("---------------------------------------------");
+        System.out.println("Set\t\t\tSupport");
+        System.out.println("---------------------------------------------");
+
+        while (it.hasNext()) {
+            ItemSet itemSet = (ItemSet) it.next();
+            System.out.print(padRight(Arrays.toString(itemSet.set.toArray()), 20) + "\t");
+            System.out.println(df.format(itemSet.support));
+        }
+        System.out.println();
+    }
+
+    private static String padRight(String s, int n) {
+        return String.format("%1$-" + n + "s", s);
+    }
+
 }

@@ -20,7 +20,7 @@ public class Main {
 
             Apriori apriori = runApriori(SUPPORT_THRESHOLD);
 
-            Apriori.prettyPrintFrequentItemSets(apriori.frequentItemSets, SUPPORT_THRESHOLD);
+            ItemSet.printFrequentItemSets(apriori.frequentItemSets, SUPPORT_THRESHOLD);
 
             for (AssociationRule rule : apriori.assRules) {
                 System.out.println(AssociationRule.toString(rule));

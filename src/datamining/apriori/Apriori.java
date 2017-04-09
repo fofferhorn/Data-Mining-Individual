@@ -5,6 +5,8 @@ import datamining.datastructure.ItemSet;
 import java.util.*;
 import java.text.*;
 
+import static datamining.datastructure.ItemSet.printFrequentItemSets;
+
 
 public class Apriori {
     // Test data
@@ -40,38 +42,12 @@ public class Apriori {
      */
     public static void main( String[] args ) {
         // TODO: Select a reasonable support threshold via trial-and-error. Can either be percentage or absolute value.
-        final double supportThreshold = 0.30;
+        final double supportThreshold = 0.40;
         Apriori apriori = apriori( TRANSACTIONS, supportThreshold );
 
-        prettyPrintFrequentItemSets(apriori.frequentItemSets, supportThreshold);
+        ItemSet.printFrequentItemSets(apriori.frequentItemSets, supportThreshold);
 
-        for (AssociationRule rule : apriori.assRules) {
-            System.out.println(AssociationRule.toString(rule));
-        }
-    }
-
-    /**
-     * Used for pretty printing the frequent item sets.
-     * @param frequentItemSets A list with all the frequent item sets.
-     *                         Will be printed in the same order they are in the list
-     * @param supportThreshold The support threshold.
-     */
-    public static void prettyPrintFrequentItemSets(List<ItemSet> frequentItemSets, double supportThreshold) {
-        DecimalFormat df = new DecimalFormat("#%");
-
-        System.out.println("\nThe ItemSets with support higher than " + df.format(supportThreshold) + " are:\n");
-
-        ListIterator it = frequentItemSets.listIterator();
-
-        System.out.println("---------------------------------------------");
-        System.out.println("Set\t\t\tSupport");
-        System.out.println("---------------------------------------------");
-
-        while (it.hasNext()) {
-            ItemSet itemSet = (ItemSet) it.next();
-            System.out.print(padRight(Arrays.toString(itemSet.set.toArray()), 20) + "\t");
-            System.out.println(df.format(itemSet.support));
-        }
+        AssociationRule.printAssociationRules(apriori.assRules);
     }
 
     /**
@@ -101,12 +77,11 @@ public class Apriori {
                 result.add(itemSet.clone());
             }
         }
-        // TODO: create association rules from the frequent itemsets
 
-        List<AssociationRule> assRules = createAssociationRules(frequentItemSets, transactions, supportThreshold);
+        List<AssociationRule> assRules = createAssociationRules(result, transactions, supportThreshold);
+
         return new Apriori(result, assRules);
     }
-
 
     /**
      * Creates association rules.
@@ -119,19 +94,24 @@ public class Apriori {
 
         List<ItemSet> singleItemSetList = createSingleCandList(frequentItemSets);
 
+        System.out.println(singleItemSetList.size());
+
         for (int i = 0; i < singleItemSetList.size(); i++) {
             ItemSet set1 = singleItemSetList.get(i);
-            ItemSet comboSet = singleItemSetList.get(i).clone();
+
             for (int j = 0; j < singleItemSetList.size(); j++) {
                 //Skip to next set if the two sets are the same set.
                 if (!set1.equals(singleItemSetList.get(j))) {
                     ItemSet set2 = singleItemSetList.get(j).clone();
 
                     //Combine the two sets
+                    ItemSet comboSet = singleItemSetList.get(i).clone();
                     comboSet.set.addAll(set2.set);
 
                     //Calculate support
                     double support = countSupport(comboSet, transactions);
+
+                    System.out.println(ItemSet.toString(comboSet) + " " + support);
 
                     if (support > supportThreshold) {
                         double set1Support = countSupport(set1, transactions);
@@ -144,6 +124,9 @@ public class Apriori {
                         double correlation = 0.5 * (support / set1Support + support / set2Support);
 
                         AssociationRule rule = new AssociationRule(set1.set.get(0), set2.set.get(0), support, correlation, confidence);
+
+                        System.out.println(AssociationRule.toString(rule));
+
                         assRules.add(rule);
                     }
                 }
@@ -281,9 +264,4 @@ public class Apriori {
 
         return (double)count/(double)transactions.size();
     }
-
-    private static String padRight(String s, int n) {
-        return String.format("%1$-" + n + "s", s);  
-    }
-
 }
