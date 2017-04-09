@@ -1,6 +1,8 @@
 package datamining;
 
-import datamining.apriori.*;
+import datamining.pattern_mining.apriori.*;
+import datamining.classification.knn.*;
+import datamining.clustering.kMean.*;
 import datamining.datastructure.*;
 import datamining.preprocessing.*;
 
