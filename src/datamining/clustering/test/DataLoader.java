@@ -12,7 +12,7 @@ public class DataLoader {
 		ArrayList<Iris> data = new ArrayList<>();
 		
 		try {
-			String[][] dataOrig = CSVFileReader.readDataFile("iris.csv",",","",true);
+			String[][] dataOrig = CSVFileReader.readDataFile("resources/iris.csv",",","",true);
 			
 			for(int i = 0; i < dataOrig.length; i++)
 			{

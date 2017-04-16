@@ -2,10 +2,12 @@ package datamining.clustering.kMean;
 import java.util.ArrayList;
 
 import datamining.clustering.test.*;
+import datamining.datastructure.DataRow;
+import datamining.datastructure.Person;
 
 public class KMeanCluster {
 
-	public ArrayList<Iris> ClusterMembers;
+	public ArrayList<Person> ClusterMembers;
 	
 	public KMeanCluster()
 	{
@@ -16,7 +18,7 @@ public class KMeanCluster {
 	public String toString() {
 		String toPrintString = "-----------------------------------CLUSTER START------------------------------------------" + System.getProperty("line.separator");
 		
-		for(Iris i : this.ClusterMembers)
+		for(Person i : this.ClusterMembers)
 		{
 			toPrintString += i.toString() + System.getProperty("line.separator");
 		}
@@ -25,45 +27,35 @@ public class KMeanCluster {
 		return toPrintString;
 	}
 
-	public Iris clusterMean() {
-		float sepalLengthSum = 0;
-		float sepalWidthSum  = 0;
-		float petalLengthSum = 0;
-		float petalWidthSum  = 0;
+	public Person clusterMean() {
+		double ageSum = 0.0;
+		double heightSum = 0.0;
+		double shoeSizeSum = 0.0;
+		int maleSum = 0;
+		int femaleSum = 0;
+		int apacheSum = 0;
 
-		// For counting which is the most common iris in the cluster.
-		int setosa     = 0;
-		int versicolor = 0;
-		int virginica  = 0;
+		for (Person p : ClusterMembers) {
+			ageSum += p.age;
+			heightSum += p.height;
+			shoeSizeSum += p.shoeSize;
 
-		for (Iris i : this.ClusterMembers) {
-			sepalLengthSum += i.Sepal_Length;
-			sepalWidthSum  += i.Sepal_Width;
-			petalLengthSum += i.Petal_Length;
-			petalWidthSum  += i.Petal_Width;
-			switch (i.Class) {
-				case Iris_setosa: setosa++; break;
-				case Iris_versicolor: versicolor++; break;
-				case Iris_virginica: virginica++; break;
-				default: break;
-			} 
+			if (p.gender.equals(DataRow.Gender.MALE)) {
+				maleSum++;
+			} else if (p.gender.equals(DataRow.Gender.FEMALE)) {
+				femaleSum++;
+			} else if (p.gender.equals(DataRow.Gender.APACHE_HELICOPTER)) {
+				apacheSum++;
+			}
 		}
 
-		IrisClass irisClass;
-
-		// Finding the most common iris in the cluster.
-		if (setosa >= versicolor && setosa >= virginica) {
-			irisClass = IrisClass.Iris_setosa;
-		} else if (versicolor >= setosa && versicolor >= virginica) {
-			irisClass = IrisClass.Iris_versicolor;
-		} else {
-			irisClass = IrisClass.Iris_virginica;
+		DataRow.Gender gender = DataRow.Gender.APACHE_HELICOPTER;
+		if (maleSum >= femaleSum && maleSum >= apacheSum) {
+			gender = DataRow.Gender.MALE;
+		} else if (femaleSum >= maleSum && femaleSum >= apacheSum) {
+			gender = DataRow.Gender.FEMALE;
 		}
 
-		int n = this.ClusterMembers.size();
-
-		Iris meanIris = new Iris(sepalLengthSum/n, sepalWidthSum/n, petalLengthSum/n, petalWidthSum/n, irisClass);
-
-		return meanIris;
+		return new Person(ageSum/ClusterMembers.size(), gender, shoeSizeSum/ClusterMembers.size(), heightSum/ClusterMembers.size());
 	}
 }

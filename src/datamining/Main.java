@@ -1,5 +1,7 @@
 package datamining;
 
+import datamining.clustering.kMean.KMeanCluster;
+import datamining.clustering.kMean.KMeans;
 import datamining.pattern_mining.apriori.*;
 import datamining.classification.knn.*;
 import datamining.datastructure.*;
@@ -51,7 +53,16 @@ public class Main {
             }
 
             // Do clustering
+            System.out.println("################################################");
+            System.out.println("CLUSTERING");
+            System.out.println("################################################");
+            List<Person> personList = new ArrayList<>();
+            for (DataRow row : data) {
+                personList.add(row.person);
+            }
+            Map<Person, KMeanCluster> clustering = KMeans.KMeansPartition(3, personList);
 
+            KMeans.printClustering(clustering);
 
         } catch (IOException e) {
             e.printStackTrace();

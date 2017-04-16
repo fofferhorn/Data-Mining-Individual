@@ -53,13 +53,17 @@ public class Preprocessing {
             data[i] = removeQuotationMarks(data[i]);
 
             // Correct age
-            int age = correctAge(data[i][1]);
+            double age = correctAge(data[i][1]);
 
             // Correct genders
             DataRow.Gender gender = correctGender(data[i][2]);
 
             // Correct shoe size
             double shoeSize = correctShoeSize(data[i][3]);
+
+            double height = correctHeight(data[i][4]);
+
+            Person person = new Person(age, gender, shoeSize, height);
 
             // Correct programming languages
             ItemSet languages = correctProgrammingLanguages(data[i][7]);
@@ -185,7 +189,7 @@ public class Preprocessing {
                     games);
 
             // Add the data we have just cleaned to the list with all the clean data.
-            dataList.add(new DataRow(age, gender, shoeSize, languages, interest));
+            dataList.add(new DataRow(person, languages, interest));
         }
 
         return dataList;
@@ -208,17 +212,40 @@ public class Preprocessing {
     * @param age The age to correct
     * @return The correct age. If the age is not valid "-" is returned.
     */
-    private static int correctAge(String age) {
+    private static double correctAge(String age) {
         // Non-valid input
-        if (!isPositiveInteger(age)) return -1;
-        if (age.length() > 2) return -1;
+        if (!isPositiveInteger(age)) return -1.0;
+        if (age.length() > 2) return -1.0;
 
         // The rest of the input is accepted if it can be parsed to an int
         try {
             return Integer.parseInt(age);
         } catch (NumberFormatException e) {
-            return -1;
+            return -1.0;
         }
+    }
+
+    private static double correctHeight(String height) {
+        // clean the data a bit
+        height = height.toLowerCase();
+        height = height.replace("cm", "");
+        height = height.replace("m", "");
+
+        // Try to parse the number. If it can be parsed just set it to a default value.
+        double h;
+        try {
+            h = Double.parseDouble(height);
+        } catch (NumberFormatException e) {
+            return 100;
+        }
+
+        if (h < 100) {
+            h = 100.0;
+        } else if (h > 250) {
+            h = 250.0;
+        }
+
+        return h;
     }
 
     /**
