@@ -116,7 +116,7 @@ public class ItemSet {
     public static void printFrequentItemSets(List<ItemSet> frequentItemSets, double supportThreshold) {
         DecimalFormat df = new DecimalFormat("#%");
 
-        System.out.println("\nThe ItemSets with support higher than " + df.format(supportThreshold) + " are:");
+        System.out.println("The ItemSets with support higher than " + df.format(supportThreshold) + " are:");
 
         ListIterator it = frequentItemSets.listIterator();
 

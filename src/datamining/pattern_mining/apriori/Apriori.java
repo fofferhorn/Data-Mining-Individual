@@ -55,9 +55,7 @@ public class Apriori {
     */
     public static Apriori apriori(List<ItemSet> transactions, double supportThreshold) {
         int k;
-        System.out.println( "Finding frequent itemsets of length 1");
         List<ItemSet> frequentItemSets = generateFrequentItemSetsLevel1( transactions, supportThreshold );
-        System.out.println( " found " + frequentItemSets.size() );
 
         List<ItemSet> result = new ArrayList<>();
 
@@ -65,11 +63,8 @@ public class Apriori {
             result.add(itemSet.clone());
         }
         for (k = 1; frequentItemSets.size() > 0; k++) {
-            System.out.println( "Finding frequent itemsets of length " + Integer.toString(k + 1));
             frequentItemSets = generateFrequentItemSets( supportThreshold, transactions, frequentItemSets );
             
-            System.out.println( " found " + frequentItemSets.size() );
-
             for (ItemSet itemSet : frequentItemSets) {
                 result.add(itemSet.clone());
             }
@@ -91,8 +86,6 @@ public class Apriori {
 
         List<ItemSet> singleItemSetList = createSingleCandList(frequentItemSets);
 
-        System.out.println(singleItemSetList.size());
-
         for (int i = 0; i < singleItemSetList.size(); i++) {
             ItemSet set1 = singleItemSetList.get(i);
 
@@ -108,8 +101,6 @@ public class Apriori {
                     //Calculate support
                     double support = countSupport(comboSet, transactions);
 
-                    System.out.println(ItemSet.toString(comboSet) + " " + support);
-
                     if (support > supportThreshold) {
                         double set1Support = countSupport(set1, transactions);
                         double set2Support = countSupport(set2, transactions);
@@ -121,8 +112,6 @@ public class Apriori {
                         double correlation = 0.5 * (support / set1Support + support / set2Support);
 
                         AssociationRule rule = new AssociationRule(set1.set.get(0), set2.set.get(0), support, correlation, confidence);
-
-                        System.out.println(AssociationRule.toString(rule));
 
                         assRules.add(rule);
                     }

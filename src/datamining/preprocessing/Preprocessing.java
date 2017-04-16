@@ -64,8 +64,26 @@ public class Preprocessing {
             // Correct programming languages
             ItemSet languages = correctProgrammingLanguages(data[i][7]);
 
+            // Correct the interests
+            StudentLabel studentClass = StudentLabel.guest;
+            if (data[i][5].equals("SDT-AC")) studentClass = StudentLabel.ac;
+            if (data[i][5].equals("SDT-DT")) studentClass = StudentLabel.dt;
+            if (data[i][5].equals("DIM")) studentClass = StudentLabel.dim;
+            if (data[i][5].equals("GAMES-T")) studentClass = StudentLabel.games;
+            if (data[i][5].equals("Guest Student")) studentClass = StudentLabel.guest;
+            if (data[i][5].equals("SWU")) studentClass = StudentLabel.swu;
+            if (data[i][5].equals("SDT-SE")) studentClass = StudentLabel.se;
+
+            String[] tmp = data[i][20].split(";");
+            List<String> games = new ArrayList<>();
+            for (String game : tmp) {
+                games.add(game);
+            }
+
+            Interest interest = new Interest(studentClass, data[i][8], data[i][9], data[i][10], data[i][11], data[i][12], data[i][13], data[i][14], data[i][15], data[i][16], data[i][17], data[i][18], data[i][19], games);
+
             // Add the data we have just cleaned to the list with all the clean data.
-            dataList.add(new DataRow(age, gender, shoeSize, languages));
+            dataList.add(new DataRow(age, gender, shoeSize, languages, interest));
         }
 
         return dataList;
