@@ -1,7 +1,7 @@
 51 DT
 52 DT
 53 DT
-54 SE
+54 DT
 55 DT
 56 DT
 57 DT
@@ -13,7 +13,7 @@
 63 DT
 64 DT
 65 DT
-66 games
+66 DT
 67 DT
 68 games
 69 DT

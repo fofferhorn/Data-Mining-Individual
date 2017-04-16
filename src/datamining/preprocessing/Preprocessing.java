@@ -80,7 +80,109 @@ public class Preprocessing {
                 games.add(game);
             }
 
-            Interest interest = new Interest(studentClass, data[i][8], data[i][9], data[i][10], data[i][11], data[i][12], data[i][13], data[i][14], data[i][15], data[i][16], data[i][17], data[i][18], data[i][19], games);
+            int design_databases = 0;
+            int predictive_models = 0;
+            int groups_similar_objects = 0;
+            int visualization = 0;
+            int patterns_sets = 0;
+            int patterns_sequences = 0;
+            int patterns_graphs = 0;
+            int patterns_text = 0;
+            int patterns_images = 0;
+            int code_algorithms = 0;
+            int use_off_the_shelf = 0;
+
+            switch (data[i][9]) {
+                case "Not interested": design_databases = 0; break;
+                case "Meh": design_databases = 1; break;
+                case "Sounds interesting": design_databases = 2; break;
+                case "Very interesting": design_databases = 3; break;
+            }
+
+            switch (data[i][10]) {
+                case "Not interested": predictive_models = 0; break;
+                case "Meh": predictive_models = 1; break;
+                case "Sounds interesting": predictive_models = 2; break;
+                case "Very interesting": predictive_models = 3; break;
+            }
+
+            switch (data[i][11]) {
+                case "Not interested": groups_similar_objects = 0; break;
+                case "Meh": groups_similar_objects = 1; break;
+                case "Sounds interesting": groups_similar_objects = 2; break;
+                case "Very interesting": groups_similar_objects = 3; break;
+            }
+
+            switch (data[i][12]) {
+                case "Not interested": visualization = 0; break;
+                case "Meh": visualization = 1; break;
+                case "Sounds interesting": visualization = 2; break;
+                case "Very interesting": visualization = 3; break;
+            }
+
+            switch (data[i][13]) {
+                case "Not interested": patterns_sets = 0; break;
+                case "Meh": patterns_sets = 1; break;
+                case "Sounds interesting": patterns_sets = 2; break;
+                case "Very interesting": patterns_sets = 3; break;
+            }
+
+            switch (data[i][14]) {
+                case "Not interested": patterns_sequences = 0; break;
+                case "Meh": patterns_sequences = 1; break;
+                case "Sounds interesting": patterns_sequences = 2; break;
+                case "Very interesting": patterns_sequences = 3; break;
+            }
+
+            switch (data[i][15]) {
+                case "Not interested": patterns_graphs = 0; break;
+                case "Meh": patterns_graphs = 1; break;
+                case "Sounds interesting": patterns_graphs = 2; break;
+                case "Very interesting": patterns_graphs = 3; break;
+            }
+
+            switch (data[i][16]) {
+                case "Not interested": patterns_text = 0; break;
+                case "Meh": patterns_text = 1; break;
+                case "Sounds interesting": patterns_text = 2; break;
+                case "Very interesting": patterns_text = 3; break;
+            }
+
+            switch (data[i][17]) {
+                case "Not interested": patterns_images = 0; break;
+                case "Meh": patterns_images = 1; break;
+                case "Sounds interesting": patterns_images = 2; break;
+                case "Very interesting": patterns_images = 3; break;
+            }
+
+            switch (data[i][18]) {
+                case "Not interested": code_algorithms = 0; break;
+                case "Meh": code_algorithms = 1; break;
+                case "Sounds interesting": code_algorithms = 2; break;
+                case "Very interesting": code_algorithms = 3; break;
+            }
+
+            switch (data[i][19]) {
+                case "Not interested": use_off_the_shelf = 0; break;
+                case "Meh": use_off_the_shelf = 1; break;
+                case "Sounds interesting": use_off_the_shelf = 2; break;
+                case "Very interesting": use_off_the_shelf = 3; break;
+            }
+
+            Interest interest = new Interest(studentClass,
+                    data[i][8],
+                    design_databases,
+                    predictive_models,
+                    groups_similar_objects,
+                    visualization,
+                    patterns_sets,
+                    patterns_sequences,
+                    patterns_graphs,
+                    patterns_text,
+                    patterns_images,
+                    code_algorithms,
+                    use_off_the_shelf,
+                    games);
 
             // Add the data we have just cleaned to the list with all the clean data.
             dataList.add(new DataRow(age, gender, shoeSize, languages, interest));

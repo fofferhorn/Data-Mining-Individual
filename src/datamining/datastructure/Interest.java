@@ -6,33 +6,33 @@ import java.util.ListIterator;
 public class Interest {
     public StudentLabel studentLabel;
     public String phone_os;
-    public String design_databases;
-    public String predictive_models;
-    public String groups_similar_objects;
-    public String visualization;
-    public String patterns_sets;
-    public String patterns_sequences;
-    public String patterns_graphs;
-    public String patterns_text;
-    public String patterns_images;
-    public String code_algorithms;
-    public String use_off_the_shelf;
+    public int design_databases;
+    public int predictive_models;
+    public int groups_similar_objects;
+    public int visualization;
+    public int patterns_sets;
+    public int patterns_sequences;
+    public int patterns_graphs;
+    public int patterns_text;
+    public int patterns_images;
+    public int code_algorithms;
+    public int use_off_the_shelf;
     public List<String> games_played;
 
     public Interest(StudentLabel studentLabel,
-            String phone_os,
-            String design_databases,
-            String predictive_models,
-            String groups_similar_objects,
-            String visualization,
-            String patterns_sets,
-            String patterns_sequences,
-            String patterns_graphs,
-            String patterns_text,
-            String patterns_images,
-            String code_algorithms,
-            String use_off_the_shelf,
-            List<String> games_played) {
+                    String phone_os,
+                    int design_databases,
+                    int predictive_models,
+                    int groups_similar_objects,
+                    int visualization,
+                    int patterns_sets,
+                    int patterns_sequences,
+                    int patterns_graphs,
+                    int patterns_text,
+                    int patterns_images,
+                    int code_algorithms,
+                    int use_off_the_shelf,
+                    List<String> games_played) {
         this.studentLabel = studentLabel;
         this.phone_os = phone_os;
         this.design_databases = design_databases;

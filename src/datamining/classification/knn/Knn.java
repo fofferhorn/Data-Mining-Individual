@@ -253,18 +253,18 @@ public class Knn {
     private static double interestDistance(Interest i1, Interest i2) {
         double dist = 0;
 
-        if (!i1.code_algorithms.equals(i2.code_algorithms)) dist++;
-        if (!i1.design_databases.equals(i2.design_databases)) dist++;
-        if (!i1.groups_similar_objects.equals(i2.groups_similar_objects)) dist++;
-        if (!i1.patterns_graphs.equals(i2.patterns_graphs)) dist++;
-        if (!i1.patterns_images.equals(i2.patterns_images)) dist++;
-        if (!i1.patterns_sequences.equals(i2.patterns_sequences)) dist++;
-        if (!i1.patterns_sets.equals(i2.patterns_sets)) dist++;
-        if (!i1.patterns_text.equals(i2.patterns_text)) dist ++;
+        dist += Math.abs(i1.code_algorithms - i2.code_algorithms);
+        dist += Math.abs(i1.design_databases - i2.design_databases);
+        dist += Math.abs(i1.groups_similar_objects - i2.groups_similar_objects);
+        dist += Math.abs(i1.patterns_graphs - i2.patterns_graphs);
+        dist += Math.abs(i1.patterns_images - i2.patterns_images);
+        dist += Math.abs(i1.patterns_sequences - i2.patterns_sequences);
+        dist += Math.abs(i1.patterns_sets - i2.patterns_sets);
+        dist += Math.abs(i1.patterns_text - i2.patterns_text);
+        dist += Math.abs(i1.predictive_models - i2.predictive_models);
+        dist += Math.abs(i1.use_off_the_shelf - i2.use_off_the_shelf);
+
         if (!i1.phone_os.equals(i2.phone_os)) dist++;
-        if (!i1.predictive_models.equals(i2.predictive_models)) dist++;
-        if (!i1.visualization.equals(i2.visualization)) dist++;
-        if (!i1.use_off_the_shelf.equals(i2.use_off_the_shelf)) dist++;
 
         for (String game : i1.games_played) {
             if (!i2.games_played.contains(game)) dist++;
