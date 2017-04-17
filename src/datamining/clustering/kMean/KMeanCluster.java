@@ -20,7 +20,7 @@ public class KMeanCluster {
 		
 		for(Person i : this.ClusterMembers)
 		{
-			toPrintString += i.toString() + System.getProperty("line.separator");
+			toPrintString += Person.toString(i) + System.getProperty("line.separator");
 		}
 		toPrintString += "-----------------------------------CLUSTER END-------------------------------------------" + System.getProperty("line.separator");
 		

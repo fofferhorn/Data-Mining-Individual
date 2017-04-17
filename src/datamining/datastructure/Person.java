@@ -15,6 +15,11 @@ public class Person {
     }
 
     public static String toString(Person p) {
-        return "(" + p.gender + ", " + p.age + ", " + p.height + ", " + p.shoeSize + ")";
+        return p.gender + "\t" + p.age + "\t" + p.height + "\t" + p.shoeSize;
+    }
+
+    public boolean equals(Person p) {
+        if (this.age == p.age && this.gender == p.gender && this.shoeSize == p.shoeSize && this.height == p.height) return true;
+        return false;
     }
 }

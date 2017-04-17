@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Normalizer {
-	
+
+    /**
+     * Normalizes the data
+     * @param data
+     * @return
+     */
 	public static List<DataRow> normalizeData(List<DataRow> data) {
         double maxAge = 0;
         double maxHeight = 0.0;

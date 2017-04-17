@@ -11,10 +11,13 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
+/**
+ * Used to run all the implemented algorithms on the data
+ */
 public class Main {
 
     private static final String DATA_FILE = "resources/data.csv";
-    private static final double SUPPORT_THRESHOLD = 0.25;
+    private static final double SUPPORT_THRESHOLD = 0.27;
 
     private static final int TRAINING_SIZE = 50;
 

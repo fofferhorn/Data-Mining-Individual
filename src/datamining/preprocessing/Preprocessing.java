@@ -5,6 +5,8 @@ import datamining.datastructure.*;
 import java.io.IOException;
 import java.util.*;
 
+import static datamining.preprocessing.Normalizer.normalizeData;
+
 public class Preprocessing {
 
     private static final String DATA_FILE = "resources/data.csv";
@@ -192,7 +194,7 @@ public class Preprocessing {
             dataList.add(new DataRow(person, languages, interest));
         }
 
-        return dataList;
+        return normalizeData(dataList);
     }
 
     /**
